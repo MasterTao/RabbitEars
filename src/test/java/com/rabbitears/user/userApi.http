@@ -1,0 +1,12 @@
+POST http://localhost:8088/user/register?name=monkey&password=123456
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8088/user/login?name=monkey&password=1234567
+Accept: */*
+Cache-Control: no-cache
+
+###
+
