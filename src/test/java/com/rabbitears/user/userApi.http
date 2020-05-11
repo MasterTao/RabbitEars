@@ -4,9 +4,13 @@ Cache-Control: no-cache
 
 ###
 
-POST http://localhost:8088/user/login?name=monkey&password=1234567
+POST http://localhost:8088/user/login?name=monkey&password=123456
 Accept: */*
 Cache-Control: no-cache
 
 ###
+
+GET http://localhost:8088/user/info
+Accept: */*
+Cache-Control: no-cache
 
