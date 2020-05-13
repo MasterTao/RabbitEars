@@ -1,6 +1,8 @@
 package com.rabbitears.controller;
 
+import com.rabbitears.entity.Result;
 import com.rabbitears.entity.User;
+import com.rabbitears.enums.ResultEnum;
 import com.rabbitears.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -70,5 +72,10 @@ public class UserController {
         User user = (User) request.getSession().getAttribute("user");
         System.out.println(user);
         return "success";
+    }
+
+    @GetMapping("/test")
+    public Result test() {
+        return Result.build(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage());
     }
 }
