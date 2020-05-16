@@ -1,5 +1,6 @@
 package com.rabbitears.entity;
 
+import com.rabbitears.enums.ResultEnum;
 import lombok.Data;
 
 @Data
@@ -26,5 +27,9 @@ public class Result {
 
     public static Result build(Integer code, String message) {
         return new Result(code, message);
+    }
+
+    public static Result buildSuccess() {
+        return build(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage());
     }
 }
