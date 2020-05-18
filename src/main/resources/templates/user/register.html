@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form class="form-horizontal" method="post" action="/v1/user/register">
+<form id="registerForm" class="form-horizontal" method="post">
     <div class="form-group">
         <label for="userName" class="col-sm-2 control-label">用户名</label>
         <div class="col-sm-10">
@@ -31,10 +31,45 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">注册</button>
+            <button type="button" id="registerButton" class="btn btn-default">注册</button>
         </div>
     </div>
 </form>
+
+<div id="feedback"></div>
+
+<script>
+    $(function () {
+        $('#registerButton').click(function() {
+            var userName = $('#userName').val();
+            var password = $('#password').val();
+            var confirmPassword = $('#confirmPassword').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "/v1/user/register",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    userName: userName,
+                    password: password,
+                    confirmPassword: confirmPassword
+                }),
+                success: function(data){
+                    $('#feedback').html(data.message);
+                    console.log("SUCCESS : ", data.code);
+                    $("#registerButton").prop("disabled", false);
+                    window.location.href = "index.html";
+                },
+                error: function(e){
+                    $('#feedback').html("ERROR");
+                    console.log("ERROR : ", e);
+                    $("#registerButton").prop("disabled", false);
+                }
+            })
+        });
+    })
+</script>
 
 </body>
 </html>
