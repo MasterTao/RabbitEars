@@ -1,5 +1,6 @@
 package com.rabbitears.controller;
 
+import com.rabbitears.dto.user.LoginDto;
 import com.rabbitears.dto.user.RegisterDto;
 import com.rabbitears.entity.Result;
 import com.rabbitears.entity.User;
@@ -53,13 +54,15 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/login")
-    public Result login(@RequestParam("userName") String name, @RequestParam("password") String password, HttpServletRequest request) {
+    public Result login(@RequestBody LoginDto loginDto, HttpServletRequest request) {
+        String name = loginDto.getName();
         User user = userService.getByName(name);
         if (null == user) {
             return Result.build(ResultEnum.USER_INFO_ERROR.getCode(), ResultEnum.USER_INFO_ERROR.getMessage());
         }
 
         // 判断加密后密码是否一致
+        String password =loginDto.getPassword();
         String md5Pwd = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!user.getPassword().equals(md5Pwd)) {
             return Result.build(ResultEnum.USER_INFO_ERROR.getCode(), ResultEnum.USER_INFO_ERROR.getMessage());

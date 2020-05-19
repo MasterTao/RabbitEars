@@ -10,6 +10,7 @@
 </head>
 <body>
 
+<h1>注册</h1>
 <form id="registerForm" class="form-horizontal" method="post">
     <div class="form-group">
         <label for="userName" class="col-sm-2 control-label">用户名</label>
@@ -57,14 +58,11 @@
                 }),
                 success: function(data){
                     $('#feedback').html(data.message);
-                    console.log("SUCCESS : ", data.code);
-                    $("#registerButton").prop("disabled", false);
-                    window.location.href = "index.html";
+                    // 跳回首页
+                    window.location.href = "/";
                 },
                 error: function(e){
                     $('#feedback').html("ERROR");
-                    console.log("ERROR : ", e);
-                    $("#registerButton").prop("disabled", false);
                 }
             })
         });
