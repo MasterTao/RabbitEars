@@ -1,0 +1,11 @@
+POST http://localhost:8088/v1/question/add
+Content-Type: application/json
+Accept: */*
+Cache-Control: no-cache
+
+{
+  "title":"我是问题",
+  "description":"怎么才能快速赚钱"
+}
+
+###

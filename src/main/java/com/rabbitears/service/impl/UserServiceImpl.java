@@ -1,8 +1,9 @@
-package com.rabbitears.service;
+package com.rabbitears.service.impl;
 
 import com.rabbitears.entity.User;
 import com.rabbitears.mapper.UserExample;
 import com.rabbitears.mapper.UserMapper;
+import com.rabbitears.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -12,15 +13,16 @@ import java.util.List;
 
 
 @Service
-public class UserService {
+public class UserServiceImpl implements IUserService {
 
     UserMapper userMapper;
 
     @Autowired
-    public void setUserDao(UserMapper userMapper) {
+    public void setUserMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
+    @Override
     public User getByName(String name) {
         UserExample example = new UserExample();
         example.createCriteria().andNameEqualTo(name);
@@ -28,6 +30,7 @@ public class UserService {
         return users.isEmpty() ? null : users.get(0);
     }
 
+    @Override
     public void add(String name, String password) {
         User user = new User();
         user.setName(name);
@@ -43,6 +46,7 @@ public class UserService {
         userMapper.insert(user);
     }
 
+    @Override
     public User updatePassword(Integer id, String newPassword) {
         User user = new User();
         user.setId(id);

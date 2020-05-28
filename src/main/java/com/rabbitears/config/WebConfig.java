@@ -12,7 +12,7 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private final List<String> list = new ArrayList<>(Arrays.asList("/user/login", "/user/register", "/user/index", "/static/**"));
+    private final List<String> list = new ArrayList<>(Arrays.asList("/user/login", "/user/register", "/user/index", "/static/**", "/v1/user/login", "/v1/user/register"));
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

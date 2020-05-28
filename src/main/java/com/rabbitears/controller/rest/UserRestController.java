@@ -1,4 +1,4 @@
-package com.rabbitears.controller;
+package com.rabbitears.controller.rest;
 
 import com.rabbitears.dto.user.ModifyPasswordDto;
 import com.rabbitears.dto.user.LoginDto;
@@ -6,7 +6,8 @@ import com.rabbitears.dto.user.RegisterDto;
 import com.rabbitears.entity.Result;
 import com.rabbitears.entity.User;
 import com.rabbitears.enums.ResultEnum;
-import com.rabbitears.service.UserService;
+import com.rabbitears.service.IUserService;
+import com.rabbitears.service.impl.UserServiceImpl;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
@@ -22,10 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/v1/user")
 public class UserRestController {
 
-    UserService userService;
+    IUserService userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public void setUserService(UserServiceImpl userService) {
         this.userService = userService;
     }
 

@@ -1,4 +1,4 @@
-package com.rabbitears.controller;
+package com.rabbitears.controller.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
