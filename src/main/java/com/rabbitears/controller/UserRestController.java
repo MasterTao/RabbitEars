@@ -1,19 +1,18 @@
 package com.rabbitears.controller;
 
+import com.rabbitears.dto.user.ModifyPasswordDto;
 import com.rabbitears.dto.user.LoginDto;
 import com.rabbitears.dto.user.RegisterDto;
 import com.rabbitears.entity.Result;
 import com.rabbitears.entity.User;
 import com.rabbitears.enums.ResultEnum;
 import com.rabbitears.service.UserService;
-import io.micrometer.core.instrument.util.JsonUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 
 /**
  * 用户相关操作
@@ -62,7 +61,7 @@ public class UserRestController {
         }
 
         // 判断加密后密码是否一致
-        String password =loginDto.getPassword();
+        String password = loginDto.getPassword();
         String md5Pwd = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!user.getPassword().equals(md5Pwd)) {
             return Result.build(ResultEnum.USER_INFO_ERROR.getCode(), ResultEnum.USER_INFO_ERROR.getMessage());
@@ -80,8 +79,23 @@ public class UserRestController {
         return Result.buildSuccess();
     }
 
-    @PostMapping("/modify")
-    public Result modify() {
+    @PostMapping("/modifyPassword")
+    public Result modify(@RequestBody ModifyPasswordDto modifyPasswordDto, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+
+        // 两次密码输入不一致
+        if (modifyPasswordDto.getNewPassword().equals(modifyPasswordDto.getOldPassword())) {
+            return Result.build(ResultEnum.USER_CONFIRM_PASSWORD_ERROR.getCode(), ResultEnum.USER_CONFIRM_PASSWORD_ERROR.getMessage());
+        }
+
+        // 原密码输入错误
+        String md5Pwd = DigestUtils.md5DigestAsHex(modifyPasswordDto.getOldPassword().getBytes());
+        if (!user.getPassword().equals(md5Pwd)) {
+            return Result.build(ResultEnum.USER_PASSWORD_ERROR.getCode(), ResultEnum.USER_PASSWORD_ERROR.getMessage());
+        }
+
+        User newUser = userService.updatePassword(user.getId(), modifyPasswordDto.getNewPassword());
+        request.getSession().setAttribute("user", newUser);
         return Result.buildSuccess();
     }
 

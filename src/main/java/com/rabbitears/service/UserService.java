@@ -43,5 +43,11 @@ public class UserService {
         userMapper.insert(user);
     }
 
-
+    public User updatePassword(Integer id, String newPassword) {
+        User user = new User();
+        user.setId(id);
+        user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+        userMapper.updateByPrimaryKeySelective(user);
+        return userMapper.selectByPrimaryKey(id);
+    }
 }

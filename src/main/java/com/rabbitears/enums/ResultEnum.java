@@ -13,7 +13,8 @@ public enum ResultEnum {
     USER_INFO_EMPTY(10001, "用户名或密码不能为空"),
     USER_NAME_EXIST(10002, "用户名已存在"),
     USER_CONFIRM_PASSWORD_ERROR(10003, "密码输入不一致"),
-    USER_INFO_ERROR(10004, "用户名或密码错误")
+    USER_INFO_ERROR(10004, "用户名或密码错误"),
+    USER_PASSWORD_ERROR(10005, "密码输入错误")
     ;
 
     private Integer code;

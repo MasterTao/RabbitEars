@@ -17,7 +17,7 @@ Accept: */*
 Cache-Control: no-cache
 
 {
-  "name": "monkey",
+  "userName": "monkey",
   "password": "123456"
 }
 
@@ -30,12 +30,19 @@ Cache-Control: no-cache
 
 ###
 
-POST http://localhost:8088/v1/user/test
+GET http://localhost:8088/v1/user/logout
+Accept: */*
+Cache-Control: no-cache
+
+
+###
+
+POST http://localhost:8088/v1/user/modifyPassword
 Content-Type: application/json
 Accept: */*
 Cache-Control: no-cache
 
 {
-  "name": "monkey",
-  "password": "123456"
+  "oldPassword": "123456",
+  "newPassword": "123456789"
 }
